@@ -635,7 +635,7 @@ function calculateAll(rerender_surv_dd = true) {
   var p1 = new Pokemon($("#p1"), field);
   var p2 = new Pokemon($("#p2"), field);
   damageResults = calculateAllMoves(p1, p2, field);
-  powercalc(p1, p2, field);
+  powercalc(p1, p2, field, damageResults);
   var result,
     minDamage,
     maxDamage,
