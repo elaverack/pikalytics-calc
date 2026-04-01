@@ -1,13 +1,22 @@
 //TODO separate bulk calc dummy from power calc dummy, don't want properties of the target to affect the power rating of the attack
 
+function copyTypesAndTera(dummy, pokemon) {
+  dummy.type1 = pokemon.type1;
+  dummy.type2 = pokemon.type2;
+  if (pokemon.teraType) {
+    dummy.teraType = pokemon.teraType;
+  } else {
+    delete dummy.teraType;
+  }
+}
+
 function createBulkDummy(pokemon) {
   //create new pokemon based on p1
   var dummy = new Pokemon($('#p1'));
   //give it the desired pokemon ability, type, weight, dynamax, speed
   dummy.ability = pokemon.ability;
   dummy.isDynamax = pokemon.isDynamax;
-  dummy.type1 = pokemon.type1;
-  dummy.type2 = pokemon.type2;
+  copyTypesAndTera(dummy, pokemon);
   dummy.weight = pokemon.weight;
   dummy.status = pokemon.status;
   dummy.HPEVs = 0;
@@ -34,8 +43,10 @@ function createPowerDummy(pokemon) {
   //give it the desired pokemon ability, type, weight, dynamax, speed
   dummy.ability = pokemon.ability;
   dummy.isDynamax = pokemon.isDynamax;
+  // Neutral defender: no matchup effectiveness. STAB/Tera/boosts come from the real attacker (p1/p2).
   dummy.type1 = '???';
   dummy.type2 = '???';
+  delete dummy.teraType;
   dummy.weight = pokemon.weight;
   dummy.status = pokemon.status;
   dummy.HPEVs = 0;
