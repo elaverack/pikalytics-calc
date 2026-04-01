@@ -1787,7 +1787,14 @@ $(".result-move").change(function () {
           "</span>"
       );
       $("#mainResultDamage").html(result.damageText);
-      $("#mainResultPower").html(result.powerText);
+      var moveId = $(this).attr("id");
+      var moveIdMatch = moveId && moveId.match(/^resultMove(L|R)(\d)$/);
+      var powerText = "";
+      if (moveIdMatch) {
+        var player = moveIdMatch[1] === "L" ? "p1" : "p2";
+        powerText = $("#" + player + "_move" + moveIdMatch[2] + "_power").text();
+      }
+      $("#mainResultPower").html(powerText);
       $("#mainResultKO").html(result.koChanceText);
       $("#damageValues").text("(" + result.damage.join(", ") + ")");
     }
